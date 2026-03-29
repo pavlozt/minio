@@ -1,9 +1,17 @@
-> [!NOTE]
-> **THIS REPOSITORY IS NO LONGER MAINTAINED.**
->
-> **Alternatives:**
-> - **[AIStor Free](https://min.io/download)** — Full-featured, standalone edition for community use (free license)
-> - **[AIStor Enterprise](https://min.io/pricing)** — Distributed edition with commercial support
+# 🛠 Personal Fork
+This repository is a custom distribution of **MinIO**. 
+
+- **Purpose:** Personal build and experiments.
+- **Upstream:** Based on [minio/minio](https://github.com).
+- **Usage:** Open for everyone. Feel free to use the code or pull the images.
+
+# Docker Image
+The latest builds are available via **GitHub Container Registry**:
+
+```bash
+docker pull ghcr.io/pavlozt/minio:latest
+```
+
 
 ---
 
