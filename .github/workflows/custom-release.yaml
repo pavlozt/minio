@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -33,6 +33,14 @@ jobs:
           RELEASE_TAG="RELEASE.$(date -u +'%Y-%m-%dT%H-%M-%SZ')"
           echo "RELEASE_TAG=${RELEASE_TAG}" >> $GITHUB_ENV
           echo "tag=${RELEASE_TAG}" >> $GITHUB_OUTPUT
+
+      # git tag needs for github releases
+      - name: Create Git Tag
+        run: |
+          git tag ${{ env.RELEASE_TAG }}
+          git push origin ${{ env.RELEASE_TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Make build
         run: make build
@@ -56,4 +64,13 @@ jobs:
           build-args: |
             RELEASE=${{ env.RELEASE_TAG }}
             TARGETARCH=amd64
+
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }} 
+          files:
+            minio
+          body: "Automated release for ${{ env.RELEASE_TAG }}"
 
